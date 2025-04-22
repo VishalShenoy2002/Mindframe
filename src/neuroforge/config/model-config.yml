@@ -1,0 +1,67 @@
+XSmallClassificationNetwork:
+  layer:
+    type: Dense
+    params:
+      neurons: 8
+      activation: relu
+  output-layer:
+    type: Dense
+    params:
+      activation: softmax
+  optimizer: adam
+  loss: categorical_crossentropy
+
+
+SmallClassificationNetwork:
+  layer:
+    type: Dense
+    params:
+      neurons: 16
+      activation: relu
+  output-layer:
+    type: Dense
+    params:
+      activation: softmax
+  optimizer: adam
+  loss: categorical_crossentropy
+
+MediumClassificationNetwork:
+  layer:
+    type: Dense
+    params:
+      neurons: 32
+      activation: relu
+  output-layer:
+    type: Dense
+    params:
+      activation: softmax
+  optimizer: adam
+  loss: categorical_crossentropy
+
+LargeClassificationNetwork:
+  layer:
+    type: Dense
+    params:
+      neurons: 64
+      activation: relu
+  output-layer:
+    type: Dense
+    params:
+      activation: softmax
+  optimizer: adam
+  loss: categorical_crossentropy
+
+XLargeClassificationNetwork:
+  layer:
+    type: Dense
+    params:
+      neurons: 128
+      activation: relu
+  output-layer:
+    type: Dense
+    params:
+      activation: softmax
+  optimizer: adam
+  loss: categorical_crossentropy
+
+
