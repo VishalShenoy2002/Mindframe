@@ -1,7 +1,7 @@
 [project]
-name =  "mindframe"
+name =  "neuroforge"
 version = "0.1.0"
-description = "Mindframe is an AI-powered framework designed to automate and simplify the process of building, training, and deploying machine learning models."
+description = "NeuroForge is an AI-powered framework designed to automate and simplify the process of building, training, and deploying machine learning models."
 authors = [
     { name = "VishalShenoy2002", email = "vishal.bshenoy@gmail.com" }
 ]
