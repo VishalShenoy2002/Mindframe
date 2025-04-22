@@ -1,0 +1,7 @@
+tensorflow==2.18.0
+numpy
+pandas
+scikit-learn
+langchain==0.2
+langchain-community
+unstructured
