@@ -1,4 +1,4 @@
-from utils.config import load_config_yaml
+from neuroforge.utils.config import load_config_yaml
 import keras
 import math
 from typing import Any
