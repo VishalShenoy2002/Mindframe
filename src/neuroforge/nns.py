@@ -3,9 +3,11 @@ import keras
 import math
 from typing import Any
 
-CONFIG_DATA = load_config_yaml('./src/neuroforge/config/model-config.yml')
+CONFIG_DATA = load_config_yaml('neuroforge/config/model-config.yml')
 
 class XSmallClassificationNetwork:
+    """Builds and manages an extra small neural network for classification tasks."""
+
     def __init__(self, name: str, input_shape: tuple, output_shape: int, model_type: str = "uniform", num_layers: int = 3):
         
         self.__name = name or self.__class__.__name__
@@ -92,6 +94,8 @@ class XSmallClassificationNetwork:
     
 
 class SmallClassificationNetwork:
+    """Builds and manages a small neural network for classification tasks."""
+
     def __init__(self, name: str, input_shape: tuple, output_shape: int, model_type: str = "uniform", num_layers: int = 3):
         
         self.__name = name or self.__class__.__name__
@@ -178,6 +182,8 @@ class SmallClassificationNetwork:
     
 
 class MediumClassificationNetwork:
+    """Builds and manages a medium-sized neural network for classification tasks."""
+
     def __init__(self, name: str, input_shape: tuple, output_shape: int, model_type: str = "uniform", num_layers: int = 3):
         
         self.__name = name or self.__class__.__name__
@@ -263,6 +269,8 @@ class MediumClassificationNetwork:
         return f"{scaled:.1f}{units[magnitude]}"
 
 class LargeClassificationNetwork:
+    """Builds and manages a large neural network for classification tasks."""
+
     def __init__(self, name: str, input_shape: tuple, output_shape: int, model_type: str = "uniform", num_layers: int = 3):
         
         self.__name = name or self.__class__.__name__
@@ -349,6 +357,8 @@ class LargeClassificationNetwork:
     
 
 class XLargeClassificationNetwork:
+    """Builds and manages an extra large neural network for classification tasks."""
+
     def __init__(self, name: str, input_shape: tuple, output_shape: int, model_type: str = "uniform", num_layers: int = 3):
         
         self.__name = name or self.__class__.__name__
