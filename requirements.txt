@@ -5,3 +5,4 @@ scikit-learn
 langchain==0.2
 langchain-community
 unstructured
+pdfplumber
