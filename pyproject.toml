@@ -1,6 +1,6 @@
 [project]
 name =  "neuroforge"
-version = "0.2.0"
+version = "0.2.2"
 description = "NeuroForge is an AI-powered framework designed to automate and simplify the process of building, training, and deploying machine learning models."
 authors = [
     { name = "VishalShenoy2002", email = "vishal.bshenoy@gmail.com" }
