@@ -1,11 +1,14 @@
+import importlib.resources
 import yaml
 import os
+import importlib
 
 def load_config_yaml(filename:str):
-    if not os.path.exists(filename):
-        raise FileNotFoundError(f"{filename} not found. Please correct the path or create the file.")
-    with open(filename,'r') as f:
-        data = yaml.safe_load(f)
-        f.close()
-    
+    try:
+        with importlib.resources.files("neuroforge.config").joinpath(filename).open("r") as f:
+            data = yaml.safe_load(f)
+            f.close()
+    except FileNotFoundError as error:
+        raise FileNotFoundError(f"{filename} not found in config dir.")
+ 
     return data
