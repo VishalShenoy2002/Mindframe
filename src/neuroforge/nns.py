@@ -3,7 +3,7 @@ import keras
 import math
 from typing import Any
 
-CONFIG_DATA = load_config_yaml('neuroforge/config/model-config.yml')
+CONFIG_DATA = load_config_yaml('model-config.yml')
 
 class XSmallClassificationNetwork:
     """Builds and manages an extra small neural network for classification tasks."""
