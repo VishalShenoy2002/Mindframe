@@ -268,6 +268,7 @@ class MediumClassificationNetwork:
         scaled = count / (1000 ** magnitude)
         return f"{scaled:.1f}{units[magnitude]}"
 
+
 class LargeClassificationNetwork:
     """Builds and manages a large neural network for classification tasks."""
 
@@ -443,3 +444,81 @@ class XLargeClassificationNetwork:
         scaled = count / (1000 ** magnitude)
         return f"{scaled:.1f}{units[magnitude]}"
 
+
+class XSmallImageClassificationNetwork:
+    """Builds and manages an extra small convolutional neural network for image classification tasks."""
+
+    def __init__(self, name: str, input_shape: tuple, output_shape: int, model_type: str = "uniform", num_layers: int = 3):
+        self.__name = name or self.__class__.__name__
+        self.__input_shape = input_shape
+        self.__output_shape = output_shape
+        self.__config_data = CONFIG_DATA[f"{self.__class__.__name__}"]
+        self.__model_type = model_type
+        self.__num_layers = num_layers
+
+        # print(self.__config_data)
+
+        self.__model = None
+        self.__build_model()
+
+    def __build_model(self):
+        self.__model = keras.models.Sequential(name=self.__name, trainable=True)
+        self.__model.add(keras.layers.Input(shape=self.__input_shape))
+
+        layer_info = self.__config_data['layers']
+        conv_layer = layer_info['conv-layer']
+        pooling_layer = layer_info['pooling-layer']
+        
+        conv_layer_class = getattr(keras.layers,conv_layer['type'])
+        conv_layer_params = conv_layer['params']
+        conv_filters = conv_layer_params['filters']
+        conv_activation =conv_layer_params['activation']
+        conv_kernel_size = conv_layer_params['kernel-size']
+
+        pooling_layer_class = getattr(keras.layers, pooling_layer['type'])
+        pooling_layer_params = pooling_layer['params']
+        pooling_size = pooling_layer_params['pool-size']
+
+        if self.__model_type.lower() == "uniform":
+            for _ in range(self.__num_layers):
+                self.__model.add(conv_layer_class(conv_filters, activation=conv_activation,kernel_size=conv_kernel_size))
+                self.__model.add(pooling_layer_class(pool_size=pooling_size))
+        
+        elif self.__model_type.lower() == "incremental":
+            for idx in range(1, self.__num_layers + 1):
+                self.__model.add(conv_layer_class(conv_filters * idx, activation=conv_activation,kernel_size=conv_kernel_size))
+                self.__model.add(pooling_layer_class(pool_size=pooling_size))
+        
+        elif self.__model_type.lower() == "decremental":
+            for idx in range(self.__num_layers, 0, -1):
+                self.__model.add(conv_layer_class(conv_filters * idx, activation=conv_activation,kernel_size=conv_kernel_size))
+                self.__model.add(pooling_layer_class(pool_size=pooling_size))
+        
+        else:
+            raise ValueError(f"Invalid model_type '{self.__model_type}'. Choose from 'uniform', 'incremental', 'decremental'.")
+        
+
+        output_config = self.__config_data['output-layer']
+        flatten_layer = output_config['flatten-layer']
+        flatten_layer_class = getattr(keras.layers,flatten_layer['type']) 
+
+        dense_layer = output_config['dense-layer']
+        dense_layer_class = getattr(keras.layers,dense_layer['type'])
+        dense_params = dense_layer['params']
+        dense_activation = dense_params['activation']
+
+        self.__model.add(flatten_layer_class())
+        self.__model.add(dense_layer_class(self.__output_shape, activation=dense_activation))
+
+        self.__model.compile(optimizer=self.__config_data['optimizer'], loss=self.__config_data['loss'], metrics=['accuracy'])
+
+    def summary(self):
+        return self.__model.summary()
+    
+
+
+
+
+if __name__ == "__main__":
+    inn = XSmallImageClassificationNetwork("asd",(24,24,3),3) 
+    inn.summary()
