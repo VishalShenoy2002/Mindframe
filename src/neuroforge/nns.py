@@ -443,7 +443,3 @@ class XLargeClassificationNetwork:
         scaled = count / (1000 ** magnitude)
         return f"{scaled:.1f}{units[magnitude]}"
 
-
-xl_nn = XLargeClassificationNetwork("XL Classification Network",(10,),10,model_type='incremental',num_layers=100)
-print(xl_nn.total_params)
-xl_nn.summary()
