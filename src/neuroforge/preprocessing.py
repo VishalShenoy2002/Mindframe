@@ -16,6 +16,9 @@ class DatasetProcessor:
         self.__test_size = test_size
         self.__train_size = train_size
 
+        self.__vectorizer = TfidfVectorizer()
+        self.__encoder = LabelEncoder()
+
         self.__data = None
         self. __x = None
         self.__y = None
@@ -49,10 +52,7 @@ class DatasetProcessor:
         self.__x_train, self.__x_test, self.__y_train, self.__y_test = train_test_split(self.__x, self.__y, train_size=self.__train_size, test_size=self.__test_size, random_state=42)
 
     def vectorize_and_encode(self):
-        
-        vectorizer = TfidfVectorizer()
-        encoder = LabelEncoder()
-
+ 
         if not self.__x_train or not self.__y_train:
             raise ValueError("The value of either the input or output training set is None. Please run the .split() function first.")
         
@@ -60,11 +60,11 @@ class DatasetProcessor:
             raise ValueError("The value of either the input or output training set is None. Please run the .split() function first.")
         
 
-        self.__x_train_vectorized = vectorizer.fit_transform(self.__x_train)
-        self.__x_test_vectorized = vectorizer.transform(self.__x_test)
+        self.__x_train_vectorized = self.__vectorizer.fit_transform(self.__x_train)
+        self.__x_test_vectorized = self.__vectorizer.transform(self.__x_test)
 
-        self.__y_train_encoded = to_categorical(encoder.fit_transform(self.__y_train))
-        self.__y_test_encoded = to_categorical(encoder.fit_transform(self.__y_test))
+        self.__y_train_encoded = to_categorical(self.__encoder.fit_transform(self.__y_train))
+        self.__y_test_encoded = to_categorical(self.__encoder.fit_transform(self.__y_test))
 
     def get_segregated_data(self):
         return self.__x_train, self.__x_test, self.__y_train, self.__y_test
@@ -72,6 +72,28 @@ class DatasetProcessor:
 
     def get_model_ready_data(self):
         return self.__x_train_vectorized, self.__x_test_vectorized, self.__y_train_encoded, self.__y_test_encoded
+    
+    @property
+    def vectorizer(self):
+        return self.__vectorizer
+    
+    @property
+    def encoder(self):
+        return self.__encoder
+    
+    @property
+    def input_shape(self):
+        if self.__x_train_vectorized is None:
+            raise ValueError("Input data has not been vectorized yet. Please run vectorize_and_encode() first.")
+        return self.__x_train_vectorized.shape[1]
+
+    @property
+    def output_shape(self):
+        if self.__y_train_encoded is None:
+            raise ValueError("Output data has not been encoded yet. Please run vectorize_and_encode() first.")
+        return self.__y_train_encoded.shape[1]
+
+
 
 
         
