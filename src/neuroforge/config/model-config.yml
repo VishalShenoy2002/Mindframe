@@ -65,3 +65,117 @@ XLargeClassificationNetwork:
   loss: categorical_crossentropy
 
 
+XSmallImageClassificationNetwork:
+  layers:
+    conv-layer:
+      type: Conv2D
+      params:
+        filters: 16
+        activation: relu
+        kernel-size: [3, 3]
+    pooling-layer:
+      type: MaxPooling2D
+      params:
+        pool-size: [2, 2]
+  output-layer:
+    flatten-layer:
+      type: Flatten
+      params: {}
+    dense-layer:
+      type: Dense
+      params:
+        activation: softmax
+  optimizer: adam
+  loss: categorical_crossentropy
+
+SmallImageClassificationNetwork:
+  layers:
+    conv-layer:
+      type: Conv2D
+      params:
+        filters: 32
+        activation: relu
+        kernel-size: [3, 3]
+    pooling-layer:
+      type: MaxPooling2D
+      params:
+        pool-size: [2, 2]
+  output-layer:
+    flatten-layer:
+      type: Flatten
+      params: {}
+    dense-layer:
+      type: Dense
+      params:
+        activation: softmax
+  optimizer: adam
+  loss: categorical_crossentropy
+
+MediumImageClassificationNetwork:
+  layers:
+    conv-layer:
+      type: Conv2D
+      params:
+        filters: 64
+        activation: relu
+        kernel-size: [3, 3]
+    pooling-layer:
+      type: MaxPooling2D
+      params:
+        pool-size: [2, 2]
+  output-layer:
+    flatten-layer:
+      type: Flatten
+      params: {}
+    dense-layer:
+      type: Dense
+      params:
+        activation: softmax
+  optimizer: adam
+  loss: categorical_crossentropy
+
+LargeImageClassificationNetwork:
+  layers:
+    conv-layer:
+      type: Conv2D
+      params:
+        filters: 128
+        activation: relu
+        kernel-size: [3, 3]
+    pooling-layer:
+      type: MaxPooling2D
+      params:
+        pool-size: [2, 2]
+  output-layer:
+    flatten-layer:
+      type: Flatten
+      params: {}
+    dense-layer:
+      type: Dense
+      params:
+        activation: softmax
+  optimizer: adam
+  loss: categorical_crossentropy
+
+XLargeImageClassificationNetwork:
+  layers:
+    conv-layer:
+        type: Conv2D
+        params:
+          filters: 256
+          activation: relu
+          kernel-size: [3, 3]
+    pooling-layer:
+        type: MaxPooling2D
+        params:
+          pool-size: [2, 2]
+  output-layer:
+    flatten-layer:
+      type: Flatten
+      params: {}
+    dense-layer:
+      type: Dense
+      params:
+        activation: softmax
+  optimizer: adam
+  loss: categorical_crossentropy
