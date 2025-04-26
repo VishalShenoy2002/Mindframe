@@ -12,3 +12,13 @@ def load_config_yaml(filename:str):
         raise FileNotFoundError(f"{filename} not found in config dir.")
  
     return data
+
+def load_local_config_yaml(filename:str):
+    try:
+        with open(filename, 'r') as f:
+            data = yaml.safe_load(f)
+            f.close()
+    except FileNotFoundError as error:
+        raise FileNotFoundError(f"{filename} not found in config dir.")
+ 
+    return data
